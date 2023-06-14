@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fale conosco</title>
+    <link rel="stylesheet" href="./css/navbar.css">
+    <link rel="stylesheet" href="./css/dados.css">
+
+        <!-- LINKANDO TODO O CHART JS PRO GRAFICO -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+        <script src="http://www.chartjs.org/dist/2.7.1/Chart.js"></script>
+        <script src="http://www.chartjs.org/samples/latest/utils.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+
+</head>
+<body>
+
+
+    <div class="janela">
+        <div class="container_header-left">
+
+            <img src="img/do-utilizador.png" alt="">
+
+            <div class="hello">
+                <h3>Olá, <span id="n_usuario">usuário</span> <span id="s_usuario">sobrenome</span>!</h3>
+            </div>
+
+            <div class="menu">
+                <button class="btnMenu" onclick="btnFicha()">Ficha</button>
+            </div>
+
+            <div class="menu">
+                <button class="btnMenu" onclick="btnTreino()">Treino</button>
+            </div>
+
+            <div class="menu">
+                <button class="btnSelecionado" onclick="btnDados()">Dados</button>
+            </div>
+
+            <div class="menu">
+                <button class="btnVoltar" onclick="btnVoltar()">Voltar</button>
+            </div>
+        </div>
+</div>
+
+<div class="formulario">
+    <div class="container_formulario">
+        <h1 class="frase">Dados</h1>
+        
+        <div class="card">
+
+            <div class="informacao">
+            <span class="tituloInformacao">Nome:</span>
+            <span id="nome_usuario"></span>
+            </div>
+            
+            <div class="informacao">
+            <span class="tituloInformacao">Sobrenome:</span>
+            <span id="sobrenome_usuario"></span>
+            </div>
+
+            <div class="informacao">
+            <span class="tituloInformacao">Celular:</span>
+            <span id="celular_usuario"></span>
+            </div>
+
+            <div class="informacao">
+            <span class="tituloInformacao">Sexo:</span>
+            <span id="sexo_usuario"></span>
+            </div>
+
+            <div class="informacao">
+            <span class="tituloInformacao">E-mail: <span id="email_usuario" style="color: white;"></span></span>
+            </div>
+
+            <div class="informacao">
+            <span class="tituloInformacao">Senha:</span>
+            <span id="senha_usuario">************</span>
+            </div>
+        </div>
+          
+    </div>
+</div>
+</body>
+</html>
+
+<script>
+
+    function btnVoltar() {
+        window.location.href = "index2.html"
+    }
+
+    function btnFicha() {
+        window.location.href = "ficha.html"
+    }
+
+    function btnTreino() {
+        window.location.href = "treino.html"
+    }
+
+            n_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+            s_usuario.innerHTML = sessionStorage.SOBRENOME_USUARIO;
+            
+
+
+    let proximaAtualizacao;
+
+    window.onload = obterDadosUsuarios();
+
+    function obterDadosUsuarios() {
+        var idUsuario = Number(sessionStorage.ID_USUARIO);
+        obterDadosUsuario(idUsuario);
+    }
+
+    function obterDadosUsuario(idUsuario) {
+        if (proximaAtualizacao != undefined) {
+            clearTimeout(proximaAtualizacao);
+        }
+
+        fetch(`/usuarios/listar/${idUsuario}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarDadosUsuario(resposta, idUsuario);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarDadosUsuario(resposta, idUsuario) {
+        for (i = 0; i < resposta.length; i++) {
+            nome_usuario.innerHTML = ` ${resposta[i].Nome} `;
+
+            sobrenome_usuario.innerHTML = ` ${resposta[i].Sobrenome} `;
+
+            celular_usuario.innerHTML = ` ${resposta[i].Celular} `;
+
+            sexo_usuario.innerHTML = ` ${resposta[i].Sexo} `;
+
+            email_usuario.innerHTML = ` ${resposta[i].Email} `;
+        }
+    }
+</script>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="./css/index2.css" />
+    <link rel="stylesheet" href="./css/navbar.css">
+
+</head>
+<body>
+
+    <div class="header">
+        <div class="container_header">
+                <img class="logo" src="./img/logo.png" alt="JABBOX logo" />
+                <div class="navbar">
+                    <li class="paginaSelecionada">
+                        <img class="header icone-home" src="./img/casa.png" alt="">
+                        <a href="index2.html">Inicio</a>
+                    </li>
+                    <li>
+                        <a href="calculadora.html">Calculadora</a>
+                    </li>
+                    <li>
+                        <a href="ficha.html">Ficha</a>
+                    </li>
+                    <button onclick="btnLogin()" class="btnLogin">
+                        <a class="AL" href="index.html">Sair</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+<div class="banner">
+        <div class="container_slogan">
+            <h1 class="frase">Bem-Vindo!</h1>
+            <span id="n_usuario" class="campeao">usuario</span>
+        </div>
+</div>
+
+<div class="footer">
+    <h1 class="frase"
+                <span>ENTRE EM</span>
+                <span>CONTATO</span>
+                <span>AINDA HOJE!</span>
+    </h1>
+    <div class="container_footer">
+
+                <div class="card_contato">
+                    <h1 class="frase">Endereço</h1>
+                        <span>Haddock Lobo, 595 Ciqueira césar</span> 
+                        <span>São Paulo - Sp 01414-001</span>
+                    </div>
+
+                <div class="card_contato">
+                    <h1 class="frase">E-mail</h1>
+                        <span>
+                            jabboxjjb@hotmail.com.br
+                        </span> 
+                </div>
+            
+                <div class="card_contato">
+                    <h1 class="frase">Telefone</h1>
+                        <span>
+                            (+55) 11 993347-5862  
+                        </span> 
+                </div>
+            </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+<script>
+
+    n_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+
+    function btnLogin() {
+        window.location.href = "index.html";
+    }
+    function btnCad() {
+        window.location.href = "cadastro.html";
+    }
+    function btnSobre() {
+            window.location.href = "sobre.html";
+    }
+
+    
+</script>

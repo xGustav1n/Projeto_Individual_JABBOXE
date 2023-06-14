@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+
+    <script src="./js/funcoes.js"></script>
+    <link rel="stylesheet" href="./css/cadastro.css">
+</head>
+<body>
+
+    <div class="formulario">
+        <div class="container">
+            <h1 class="frase">Cadastro</h1>
+
+        <div class="input">
+            <input id="input_nome" type="text" name="" required="">
+            <label>Nome</label>
+        </div>
+
+        <div class="input">
+            <input id="input_sobrenome" type="text" name="" required="">
+            <label>Sobrenome</label>
+        </div>
+
+        <div class="input">
+            <input id="input_cel" type="text" name="" required="">
+            <label>Celular</label>
+        </div>
+
+    <div class="container_radio">
+            <div class="radios">
+              <label class="btnRadio">
+                <input type="radio" name="radio-group" id="rdM" value="M">
+                <span class="radioCheck"></span>
+                <span class="label_radio">Masculino</span>
+              </label>
+            </div>
+          
+            <div class="radios">
+              <label class="btnRadio">
+                <input itemid="rd_f" type="radio" name="radio-group" id="rdF" value="F">
+                <span class="radioCheck"></span>
+                <span class="label_radio">Feminino</span>
+              </label>
+            </div>
+
+            <div class="radios">
+                <label class="btnRadio">
+                <input itemid="rd_f" type="radio" name="radio-group" id="rdO" value="O">
+                <span class="radioCheck"></span>
+                <span class="label_radio">Outro</span>
+                </label>
+            </div>
+    </div>
+          
+        <div class="input">
+            <input id="input_email" type="text" name="" required="">
+            <label>E-mail</label>
+        </div>  
+
+        <div class="input">
+            <input id="input_senha" type="password" name="" required="">
+            <label>Senha</label>
+        </div>
+
+        <div class="input">
+            <input id="input_Vsenha" type="password" name="" required="">
+            <label>Confirme a senha</label>
+        </div>
+
+        <div id="div_aguardar" class="loading-div">
+            <img src="./img/gif/Pulse-0.7s-200px.gif" id="loading-gif">
+        </div>
+
+        <div id="div_erros_login"></div>
+
+        <button onclick="btnCad()" class="btnCad">
+            <h1>Cadastrar</h1>
+        </button>
+
+        <div class="voltar">
+            <button onclick="btnVoltar()" class="btnCad">
+                <h1>Voltar</h1>
+            </button>
+        </div>
+    
+        </div>
+    </div>
+    
+    <div class="login">
+        <div class="alerta_erro">
+            <div class="card_erro" id="cardErro">
+                <span id="mensagem_erro"></span>
+            </div>
+        </div>
+</body>
+</html>
+
+<script>
+    function btnCad() {
+        aguardar();
+        
+        var generoVar = "M";
+
+        if(rdF.checked){
+            var generoVar = "F";
+        } else if (rdO.checked) {
+            var generoVar = "O";
+        }
+
+        //Recupere o valor da nova input pelo nome do id
+        // Agora vá para o método fetch logo abaixo
+        var nomeVar = input_nome.value;
+        var sobrenomeVar = input_sobrenome.value;
+        var celularVar = input_cel.value;
+        var emailVar = input_email.value;
+        var senhaVar = input_senha.value;
+        var confirmacaoSenhaVar = input_Vsenha.value;
+
+        if (nomeVar == "" || sobrenomeVar == "" || celularVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "") {
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+            finalizarAguardar();
+            return false;
+
+        }  else if (emailVar.indexOf('@') < 0) {
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "(O E-mail está com o formato inválido)";
+            finalizarAguardar();
+            return false;
+
+        } else if (senhaVar.length < 6) {
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "(A senha precisa ter mais que 6 caracteres)";
+            finalizarAguardar();
+            return false;   
+
+        } else if (senhaVar != confirmacaoSenhaVar) {
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "(Senha Incorreta)";
+            finalizarAguardar();
+            return false;
+
+        }
+        else {
+            setInterval(sumirMensagem,5000)
+        }
+
+        // Enviando o valor da nova input
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nomeVar,
+                sobrenomeServer: sobrenomeVar,
+                celServer: celularVar,
+                sexoServer: generoVar,
+                emailServer: emailVar,
+                senhaServer: senhaVar
+
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                cardErro.style.display = "block";
+
+                mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+                setTimeout(() => {
+                    window.location = "login.html";
+                }, "3000")
+
+                limparFormulario();
+                finalizarAguardar();
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+        }
+
+        function sumirMensagem() {
+        cardErro.style.display = "none"
+        }
+
+
+    function btnVoltar() {
+            window.location.href = "index.html";
+        }
+</script>

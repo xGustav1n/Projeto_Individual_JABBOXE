@@ -1,0 +1,80 @@
+.container_header {
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+  }
+  
+  /* BARRA DE NAVEGAÇÃO INICIO */
+  .header .container_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px;
+    margin-bottom: 10px;
+    padding-top: 45px;
+  }
+
+  .navbar {
+    margin-bottom: 3px;
+    width: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    color: #ffffff;
+  }
+  
+  .header a{
+    text-decoration: none;
+    font-size: 18px;
+    color: #ffffff;
+    transition: 0.3s;
+    text-shadow: black 0.1em 0.1em 0.2em
+  }
+
+  a:hover {
+    opacity: 0.7;
+    font-size: 22px;
+    text-shadow: black 0.2em 0.2em 0.2em
+  }
+  
+  .paginaSelecionada {
+    font-weight: bolder;
+  }
+  
+  .header .container_header .logo {  
+    align-items: center;
+    margin-right: 100px;
+    margin-top: 20px;
+    width: 190px;
+  }
+
+  .header .container_header .icone-home {
+    align-items: center;
+    width: 16px;
+    height: 14px;
+
+  }
+
+  .btnLogin {
+    position: relative;
+    background-color: #ff0000;
+    border: none;
+    color: #FFFFFF;
+    padding: 20px;
+    width: 140px;
+    text-align: center;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0.8;
+    box-shadow:  0 8px 16px 0 rgba(255, 0, 0, 0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    border-radius: 80px;
+  }
+  .btnLogin:hover {opacity: 5;}
+
+  .btnLogin a{
+    font-size: 25px;
+  }
+  

@@ -1,0 +1,108 @@
+body {
+    background-color: #141414;
+}
+
+.center {
+    margin-left: 25%;
+    margin-top: 8%;
+}
+
+.formulario {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    margin-right: 80%;
+    border-radius: 10px;
+    width: 60%;
+    height: fit-content;
+    background-color: #212121;
+    border: #212121 0.2rem solid;
+    transition: all 0.4s ease-in;
+    box-shadow: 0.4rem 0.4rem 0.6rem #00000040;
+  }
+  
+  .container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 200px;
+  }
+
+  
+  .frase {
+    color: #ffffff;
+    font-size: 36px;
+    margin-top: 10%;
+    margin-bottom: 20px;
+    text-shadow: rgb(41, 39, 39) 0.1em 0.1em 0.2em
+  }
+  
+  .container .input {
+    position: relative;
+  }
+  
+  .container .input input {
+    display: flex;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+  }
+  
+  .container .input label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+  }
+  
+  .container .input input:focus ~ label,
+  .container .input input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #bdb8b8;
+    font-size: 12px;
+  }
+
+  .textarea {
+    margin-bottom: 5%;
+  }
+
+  .btnCad {
+    background-color: #ff0000;
+    text-align: center;
+    border: none;
+    color: #FFFFFF;
+    width: 130px;
+    height: 10vh;
+    margin-bottom: 15%;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0.8;
+    box-shadow:  0 8px 16px 0 rgba(255, 0, 0, 0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    border-radius: 10px;
+  
+  }
+  .btnCad:hover {opacity: 5;}
+  
+  .btnCad h1{
+    font-size: 25px;
+  }
+  
+  canvas {
+    width:500px;
+    height:250px;
+    opacity: 1;
+  }

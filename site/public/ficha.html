@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fale conosco</title>
+    <link rel="stylesheet" href="./css/navbar.css">
+    <link rel="stylesheet" href="./css/ficha.css">
+
+        <!-- LINKANDO TODO O CHART JS PRO GRAFICO -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+        <script src="http://www.chartjs.org/dist/2.7.1/Chart.js"></script>
+        <script src="http://www.chartjs.org/samples/latest/utils.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+
+</head>
+<body>
+
+
+    <div class="janela">
+        <div class="container_header-left">
+
+            <img src="img/do-utilizador.png" alt="">
+
+            <div class="hello">
+                <h3>Olá, <span id="n_usuario">usuário</span> <span id="s_usuario">sobrenome</span>!</h3>
+            </div>
+
+            <div class="menu">
+                <button class="btnSelecionado" onclick="btnFicha()">Ficha</button>
+            </div>
+
+            <div class="menu">
+                <button class="btnMenu" onclick="btnTreino()">Treino</button>
+            </div>
+
+            <div class="menu">
+                <button class="btnMenu" onclick="btnDados()">Dados</button>
+            </div>
+
+            <div class="menu">
+                <button class="btnVoltar" onclick="btnVoltar()">Voltar</button>
+            </div>
+        </div>
+</div>
+
+<div class="formulario">
+    <div class="container_formulario">
+        <h1 class="frase">Ficha</h1>
+        
+        <div class="card">
+
+            <div class="informacao">
+            <span class="tituloInformacao">Idade</span>
+            <span id="idade_usuario"></span>
+            </div>
+            
+            <div class="informacao">
+            <span class="tituloInformacao">Peso</span>
+            <span id="peso_usuario"></span>
+            </div>
+
+            <div class="informacao">
+            <span class="tituloInformacao">Altura</span>
+            <span id="altura_usuario"></span>
+            </div>
+
+            <div class="informacao">
+            <span class="tituloInformacao">Imc</span>
+            <span id="imc_usuario"></span>
+            </div>
+
+            <div class="informacao">
+            <span class="tituloInformacao">Categoria</span>
+            <span id="categoria_usuario"></span>
+            </div>
+        </div>
+
+        <div class="grafico">
+            <canvas id="myChart"></canvas>
+          </div>
+          
+    </div>
+</div>
+</body>
+</html>
+
+<script>
+
+    function btnVoltar() {
+        window.location.href = "index2.html"
+    }
+
+    function btnDados() {
+        window.location.href = "dados.html"
+    }
+
+    function btnTreino() {
+        window.location.href = "treino.html"
+    }
+    
+            n_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+            s_usuario.innerHTML = sessionStorage.SOBRENOME_USUARIO;
+            
+
+
+    let proximaAtualizacao;
+
+    window.onload = obterDadosUsuarios();
+
+    function obterDadosUsuarios() {
+        var fk_usuario = Number(sessionStorage.ID_USUARIO);
+        obterDadosUsuario(fk_usuario);
+    }
+
+    function obterDadosUsuario(fk_usuario) {
+        if (proximaAtualizacao != undefined) {
+            clearTimeout(proximaAtualizacao);
+        }
+
+        fetch(`/calculadora/ultimasUsuarioDados/${fk_usuario}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarDadosCalculadora(resposta, fk_usuario);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarDadosCalculadora(resposta, fk_usuario) {
+        for (i = 0; i < resposta.length; i++) {
+            idade_usuario.innerHTML = ` ${resposta[i].Idade} `;
+
+            peso_usuario.innerHTML = ` ${resposta[i].Peso} `;
+
+            altura_usuario.innerHTML = ` ${resposta[i].Altura} `;
+
+            imc_usuario.innerHTML = ` ${resposta[i].IMCEstado} `;
+
+            categoria_usuario.innerHTML = ` ${resposta[i].Categoria} `;
+        }
+    }
+
+
+let proximaAtualizacao2;
+
+window.onload = obterDadosGraficos();
+
+function obterDadosGraficos() {
+    var fk_usuario = Number(sessionStorage.ID_USUARIO);
+    obterDadosGrafico(fk_usuario)
+}
+
+function obterDadosGrafico(fk_usuario) {
+
+
+    if (proximaAtualizacao2 != undefined) {
+        clearTimeout(proximaAtualizacao2);
+    }
+
+    fetch(`/calculadora/ultimasUsuarioGrafico/${fk_usuario}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                resposta.reverse();
+
+                plotarGrafico(resposta, fk_usuario);
+
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+function plotarGrafico(resposta, fk_usuario) {
+
+console.log('iniciando plotagem do gráfico...');
+
+Peso = 0;
+IMCCalculo = 0;
+
+let dados = {
+    labels: [
+        'Peso',
+        'IMC'
+    ],
+    datasets: [{
+        label: 'Dados',
+        data: [
+            Peso,
+            IMCCalculo,
+        ],
+        fill: true,
+        backgroundColor: 'rgba(255, 0, 0, 0.2)',
+        borderColor: 'rgb(255, 0, 0, 1)',
+        
+    }]
+
+};
+
+console.log('----------------------------------------------')
+console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+console.log(resposta)
+
+for (i = 0; i < resposta.length; i++) {
+    
+    dados.datasets[0].data[0] = resposta[0].Peso;
+    dados.datasets[0].data[1] = resposta[0].IMCCalculo;
+
+}
+
+const config = {
+    type: 'polarArea',
+    data: dados,
+};
+
+let myChart = new Chart(
+    document.getElementById(`myChart`),
+    config
+);
+}
+</script>

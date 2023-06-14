@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fale conosco</title>
+    <link rel="stylesheet" href="./css/navbar.css">
+    <link rel="stylesheet" href="./css/contato.css">
+
+</head>
+<body>
+
+    <div class="header">
+        <div class="container_header">
+                <img class="logo" src="./img/logo.png" alt="JABBOX logo" />
+                <div class="navbar">
+                    <li>
+                        <img class="header icone-home" src="./img/casa.png" alt="">
+                        <a href="index.html">Inicio</a>
+                    </li>
+                    <li>
+                        <a href="sobre.html">Sobre</a>
+                    </li>
+                    <li class="paginaSelecionada">
+                        <a href="#">Fale conosco</a>
+                    </li>
+                </div>
+            </div>
+        </div>
+
+<div class="center">
+    <div class="formulario">
+        <div class="container">
+            <h1 class="frase">Entre em contato</h1>
+
+        <div class="input">
+            <input id="input_email" type="text" name="" required="">
+            <label>E-mail</label>
+        </div>  
+
+        <div class="input">
+            <textarea class="textarea" rows="4" cols="50" name="comment" placeholder="Assunto" id="input_assunto"></textarea>
+        </div>  
+
+        <button onclick="btnEnviar()" class="btnCad">
+            <h1>Enviar</h1>
+        </button>
+    
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+<script>
+    function btnEnviar() {
+        var email = input_email.value;
+        var assunto = input_assunto.value;
+
+        fetch("/usuarios/enviarAssunto", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailContatoServer: email,
+                assuntoServer: assunto
+
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                alert("Enviado");
+            } else {
+                throw ("Houve um erro ao enviar!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        return false;
+        }
+</script>

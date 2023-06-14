@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fale conosco</title>
+    <link rel="stylesheet" href="./css/navbar.css">
+    <link rel="stylesheet" href="./css/treino.css">
+
+        <!-- LINKANDO TODO O CHART JS PRO GRAFICO -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+        <script src="http://www.chartjs.org/dist/2.7.1/Chart.js"></script>
+        <script src="http://www.chartjs.org/samples/latest/utils.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+
+</head>
+<body>
+
+
+    <div class="janela">
+        <div class="container_header-left">
+
+            <img src="img/do-utilizador.png" alt="">
+
+            <div class="hello">
+                <h3>Olá, <span id="n_usuario">usuário</span> <span id="s_usuario">sobrenome</span>!</h3>
+            </div>
+
+            <div class="menu">
+                <button class="btnMenu" onclick="btnFicha()">Ficha</button>
+            </div>
+
+            <div class="menu">
+                <button class="btnSelecionado" onclick="btnTreino()">Treino</button>
+            </div>
+
+            <div class="menu">
+                <button class="btnMenu" onclick="btnDados()">Dados</button>
+            </div>
+
+            <div class="menu">
+                <button class="btnVoltar" onclick="btnVoltar()">Voltar</button>
+            </div>
+        </div>
+</div>
+
+<div class="formulario">
+    <div class="container_formulario">
+        <h1 class="frase">Treinos</h1>
+        
+        <div class="card">
+
+            <div class="btnTreino">
+                <button class="btnMenu" onclick="btnTreino1()">1º Treino</button>
+            </div>
+            <div class="btnTreino">
+                <button class="btnMenu" onclick="btnTreino2()">2º Treino</button>
+            </div>
+            <div class="btnTreino">
+                <button class="btnMenu" onclick="btnTreino3()">3º Treino</button>
+            </div>
+        </div>
+        
+        <h1 id="titulo" class="frase">Selecione o tipo de treino desejado</h1>
+
+        <div class="treino" id="treino">
+
+            <div id="treinoA" style="display: none;">
+                <div class="frase">
+                1º - Aprimore a técnica de soco para ter mais potência e resistência. Um soco bom é um soco eficiente, transmitindo a força ao oponente com graça e destreza. É claro que deve treinar a agilidade e a resistência, mas uma boa técnica também é fundamental para o boxe.
+                </div>
+                <div class="frase">
+                2º - Esmurre o saco de pancadas de três a cinco vezes em sessões de três minutos em todos os treinos. O saco de pancadas é aquele saco enorme que fica pendurado no teto e ele será seu novo companheiro. 
+                </div>
+                <div class="frase">
+                3º - Sessões de 30 segundos dando socos rápidos para fortalecer os braços. No saco de pancadas, dê o máximo de murros nesse período. Preste atenção em sua velocidade e não na potência dos socos; depois de 30 segundos, descanse pelo mesmo tempo e repita entre quatro e cinco vezes.
+                </div>
+                <div class="frase">
+                4º - Comece uma rotina de treino de força. Você pode usar halteres ou o peso do próprio corpo para desenvolver os músculos; seja qual for seu estilo, use dois ou três dias da semana para trabalhá-los. Em semanas de luta, reduza para um dia. O boxe é um exercício completo e fazer treinos de sombra, sparring ou lutar contra um oponente real já fortalecem bastante a musculatura, portanto o foco do seu treino não deve ser o desenvolvimento da força.
+                </div>
+                <div class="frase">
+                5º - Faça sparring lento. Esse é um ótimo exercício para iniciantes, pois aplica os golpes aprendidos com segurança e técnica no ringue. O sparring lento é como o comum, mas os golpes devem ser desferidos a uma velocidade 75% mais lenta do que o normal, o que o ajudará a dominar sua mão oposta, se concentrar nos movimentos que ainda não aprendeu direito e desenvolver confiança no ringue. Além disso, mesmo sendo mais devagar, você ainda terá que reagir a um adversário real e fortalecerá habilidades essenciais. 
+                </div>
+            </div>
+
+            <div id="treinoB" style="display: none;">
+                <div class="frase">
+                    1º - Faça treino intervalado duas ou três vezes por semana. As corridas longas do filme “Rocky” não são as melhores para o boxe; na realidade, essa é uma luta que depende de explosões súbitas de força e energia e o treinamento intervalado desenvolve justamente isso. O conceito dessa modalidade de treino é alternar entre exercícios rápidos e curtos carregados de energia e períodos de descanso de 10 a 15 segundos.
+                    </div>
+                    <div class="frase">
+                    2º - Mescle corridas longas, treino de sombra e disparadas rápidas nos dias em que não fará o treino intervalado. Eleconstituirá uma boa parte de sua rotina de aeróbicos e, embora seja um dos métodos mais eficazes de treino antes derounds intensos de boxe, suas pernas precisarão de ação nos dias de descanso. A melhor maneira de fazer isso émisturar exercícios para o corpo inteiro, corridas mais longas e lentas e disparadas leves.
+                    </div>
+                    <div class="frase">
+                    3º - Faça treinos de agilidade. Exercícios na escada de agilidade ou com cones são comuns em qualquer lugar e podem ser adaptados a diversos tipos de treino. Espalhe os cones ou a escada e use seus pés para ir de um espaço ao outro rapidamente. Quando estiver mais acostumado, seja criativo e troque os padrões, como pular em um pé só algumas vezes, pisar no mesmo lugar duas vezes, andar para a frente e para trás, etc.
+                    </div>
+                    <div class="frase">
+                    4º - Pule corda nos dias de treino. Pular corda é um exercício fantástico para lutar boxe, pois fortalece o coração, a agilidade, o ritmo e a coordenação geral. Inclua 15 minutos desse exercício em cada sessão e faça como se estivesse correndo no lugar, trocando o pé a cada volta que a corda der.
+                    </div>
+                    <div class="frase">
+                    5º - Trabalhe os pés. Ter uma boa técnica com os pés melhora o condicionamento cardiopulmonar, mas para um pugilista os benefícios vão além disso; saber usar os pés estrategicamente e sem hesitar durante uma luta é de suma importância.
+                    </div>
+            </div>
+
+            <div id="treinoC" style="display: none;">
+                <div class="frase">
+                    1º - Siga uma dieta equilibrada e saudável. A base de sua alimentação deve ser composta de proteínas. Alimentos muito calóricos como frituras, bolos, cremes, manteiga, açúcar, etc. devem ser cortados. Beba muita água todos os dias, pois o bem estar e condicionamento do corpo dependem disso.
+                    </div>
+                    <div class="frase">
+                    2º - Faça treino de sombra no ringue. Pratique sozinho, dê socos, gingue, faça uma luta real; esse é o melhor jeito de manter a forma sem se preocupar em se defender ou sofrer lesões. A ideia é se esforçar durante o treino de sombra, dê o seu melhor; movimente seus pés constantemente, alterne entre socar e bloquear intensamente.
+                    </div>
+                    <div class="frase">
+                    3º - Faça barra fixa e barra invertida para fortalecer os braços e as costas. Afinal, um bom soco depende disso; mesmo que você não faça nenhum outro exercício para treinar a força, use a barra. Faça algumas diariamente, aumentando o ritmo sempre que se acostumar.
+                    </div>
+                    <div class="frase" style="margin-bottom: 10%;">
+                    4º - Fortaleça seu núcleo. O núcleo do corpo é composto pelos músculos abdominais e oblíquos, que transferem energia dos membros superiores aos inferiores. Eles são vitais e devem ser parte do treino de qualquer pugilista.
+                    </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+<script>
+
+    function btnVoltar() {
+        window.location.href = "index2.html"
+    }
+
+    function btnFicha() {
+        window.location.href = "ficha.html"
+    }
+
+    function btnDados() {
+        window.location.href = "dados.html"
+    }
+
+    n_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    s_usuario.innerHTML = sessionStorage.SOBRENOME_USUARIO;
+
+    function btnTreino1() {
+        titulo.style.display = "block"
+        titulo.innerHTML = ` Treino de mão `;
+        treinoA.style.display = "block";
+        treinoB.style.display = 'none';
+        treinoC.style.display = 'none';
+    }
+
+    function btnTreino2() {
+        titulo.style.display = "block"
+        titulo.innerHTML = ` Treino de perna `;
+        treinoB.style.display = 'block';
+        treinoA.style.display = 'none';
+        treinoC.style.display = 'none';
+    }
+
+    function btnTreino3() {
+        titulo.style.display = "block"
+        titulo.innerHTML = ` Treino físico `;
+        treinoC.style.display = 'block';
+        treinoA.style.display = 'none';
+        treinoB.style.display = 'none';
+    }
+            
+</script>
